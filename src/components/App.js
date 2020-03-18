@@ -1,29 +1,42 @@
-import React, {useState} from "react";
-import ResourceList from "./ResourceList";
+import React, {useEffect, useState} from "react";
+import ResourceList from "./Resources/ResourceList";
+import UserList from "./Users/UserList";
+import Button from "./common/Button";
 
 const App = () => {
   const [resource, setResource] = useState("");
+
+  const renderList = () => {
+    if (resource === "users") {
+      return <UserList resource={resource}/>;
+    } else {
+      return <ResourceList resource={resource}/>;
+    }
+  };
 
   return (
     <div className={"ui container"} style={{marginTop: "20px"}}>
       <div className={"ui grid"}>
         <div className="two column row">
           <div className="column">
-            <button
-              className={"ui button primary"}
+            <Button
+              buttonClass={`ui button default`}
               onClick={() => setResource("posts")}
-            >
-              Post
-            </button>
-            <button
-              className={"ui button default"}
+              name={"Post"}
+            />
+            <Button
+              buttonClass={`ui button default`}
               onClick={() => setResource("todos")}
-            >
-              Todos
-            </button>
+              name={"Todos"}
+            />
+            <Button
+              buttonClass={`ui button default`}
+              onClick={() => setResource("users")}
+              name={"Users"}
+            />
           </div>
           <div className="column">
-            <ResourceList resource={resource}/>
+            {renderList()}
           </div>
         </div>
       </div>
